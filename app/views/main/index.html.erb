@@ -1,0 +1,22 @@
+<center>
+<h1> <b> PowerPuff Courts! </b> </h1>
+
+<img src="https://freepngimg.com/download/powerpuff_girls/20354-4-powerpuff-girls-transparent-image.png" alt="Dinosaur" 
+ width="750" height="600"/>
+
+<div>
+    <div>
+    <ul>
+        <%= link_to "Courts", canchas_path, class:"btn btn-outline-primary" %>
+    </ul>
+    </div>
+</div>
+
+    <% if current_user && current_user.admin %>
+        <ul>
+        <%= link_to 'Users', users_index_path, class:"btn btn-outline-secondary" %>
+        </ul>
+    <% end %>
+
+
+<p>Web page created by Daphne, Cata y Des :D</p>

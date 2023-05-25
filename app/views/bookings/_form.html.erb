@@ -1,0 +1,99 @@
+<%= form_with(model: booking, local: true) do |form| %>
+  <% if booking.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(booking.errors.count, "error") %> prohibited this booking from being saved:</h2>
+
+      <ul>
+        <% booking.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%if @booking.id_court_id != nil %>
+    <% if current_user && current_user.admin or current_user && current_user.moderator %>
+      <div class="field"> <%# Booked by %>
+        <b>
+        <h6> Hi Moderator! Please change what you need from booking of 
+        <%= @canchas.find(@booking.id_court_id).nombre.capitalize() %>  
+        made by user <%=@users.find(@booking.id_user_id).name.capitalize() %>
+        </h6> 
+        </b>
+      </div>
+    <%else%>
+      <div class="field"> <%# Booked by %>
+        <b>
+        <h6> Hi <%= current_user.name %>! Please change what you need of your previous booking of 
+        <%=@canchas.find(@booking.id_court_id).nombre %> </h6>
+        </b>
+      </div>
+    <%end%>
+  <%else%>
+      <div class="field"> <%# Booked by %>
+        <b>
+        <h6> Hi <%=current_user.name%>! We're glad that your are making a booking of 
+        <%=@canchas.find(@params).nombre%> with us </h6>
+        </b>
+      </div>
+  <%end%>
+
+
+  <%= form.label :id_user_id, @empty %> 
+  <%= form.hidden_field :id_user_id, value: current_user.id %>  
+
+  <%= form.label :id_court_id, @empty %> 
+  <%= form.hidden_field :id_court_id, value: @params %> 
+
+  <center>
+  <% if current_user && current_user.admin or current_user && current_user.moderator %>
+    <%= form.label :bookingstatus, "Booking Status" %> 
+    <%= form.select :bookingstatus, options_for_select([['Approved'], ['Rejected']]), include_blank: true, prompt: '', style:"max-width: 30rem;"%> 
+  <% else %> 
+    <%if @booking.id_court_id != nil %>
+      <h6> These were the options you selected </h6>
+    <%end%>
+    <%= form.label :bookingstatus, @empty %> 
+    <%= form.hidden_field :bookingstatus, value: "Pending revision" %> 
+  <%end%>
+  </center>
+
+
+
+  
+
+  <%# selected: fue la única forma de setear los minutos siempre en 00  %>
+  <%# desventaja es q la hora tmbn la deja como 00 al inicio %>
+  <div class="field"> 
+    <%= form.label :booked_at %>
+    <%= form.datetime_select :booked_at, start_year: Date.today.year,
+    discard_minute: true, selected: Date.tomorrow, 
+    datetime_separator:" starting at ", start_hour: 8, end_hour: 20 %>
+  </div>
+
+  <%# prompt: 'Choose here :)' %>
+
+
+  <%# <div class="field">
+    <%= form.label :booked_ends %>
+      <%# <%= form.datetime_select :booked_ends, discard_year: true, discard_month: true, discard_hour: true %> 
+    <%# </div> %>
+
+
+  <div class="field">
+    <%= form.label :booked_for, "for a period of one hour you can enjoy yourself on the selected court" %>
+    <%= form.hidden_field :booked_for, value: "1" %>
+  </div> 
+
+  <br>
+
+  <div class="field">
+    <h6> Total price: </h6>
+    <h6> <%= form.label @canchas.find(@params).price %> CLP </h6>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+
+<% end %>

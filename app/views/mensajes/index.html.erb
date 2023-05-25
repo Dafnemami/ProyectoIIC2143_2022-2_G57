@@ -1,0 +1,75 @@
+<center>
+
+<h1><b>Received Messages</b></h1>
+
+<table style="max-width: 60rem;">
+  <thead>
+    <tr>
+      <th>Sent by</th>
+      <th>Message</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% if @mensajes_recibidos != nil  %>
+      <%begin %>
+        <% @mensajes_recibidos.each do |mensaje| %>
+          <tr>
+            <td><%= User.find_by(id: mensaje.emisor).name %></td>
+            <td><%= mensaje.cuerpo %></td>
+          </tr>
+        <% end %>
+      <% rescue %>
+        <tr>
+          <td><%= User.find_by(id: @mensajes_recibidos.emisor).name %></td>
+          <td><%= @mensajes_recibidos.cuerpo %></td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <td colspan="3">No messages</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<h1><b>Sent Messages</b></h1>
+
+<table style="max-width: 60rem;">
+  <thead>
+    <tr>
+      <th>Sent to</th>
+      <th>Message</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% if @mensajes_enviados != nil  %>
+      <%begin %>
+        <% @mensajes_enviados.each do |mensaje| %>
+          <tr>
+            <td><%= mensaje.receptor %></td>
+            <td><%= mensaje.cuerpo %></td>
+          </tr>
+        <% end %>
+      <% rescue %>
+        <tr>
+          <td><%= @mensajes_enviados.receptor %></td>
+          <td><%= @mensajes_enviados.cuerpo %></td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <td colspan="3">No messages</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<%= link_to 'New message', mensajes_new_path, class:"btn btn-outline-primary" %>
+<%= link_to 'Back', "/", class:"btn btn-outline-primary" %>

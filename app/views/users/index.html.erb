@@ -1,0 +1,26 @@
+<center>
+
+<h1>Users</h1>
+
+<table class="table table-hover" style="width: 50%">
+  <thead>
+    <tr>
+      <th scope="col">Email</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.email %></td>
+        <% if current_user && current_user.admin && false %>
+          <td><%= link_to 'Edit', edit_user_registration_path(user) %></td>
+          <%= link_to "Destroy", admin_destroy_user_path(user), method: :delete, data: { confirm: "Are you sure you want to delete #{user.email}?" } %>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</center>
+<br>
+<%= link_to 'Back', "/", class:"btn btn-outline-primary" %>

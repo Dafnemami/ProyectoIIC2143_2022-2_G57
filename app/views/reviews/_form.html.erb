@@ -1,0 +1,12 @@
+<% if current_user %>
+    <%= form_for ([@cancha, @cancha.reviews.build]) do |f| %>
+        <h5> Leave a rating! </h5>
+        <%= f.range_field :score, in: 1..5, step: 1, required: true %>
+        <h5> Leave a comment! </h5>
+        <%= f.text_area :content, class:"form-control", style:"max-width: 30rem;" %>
+        <br>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    <% end %>
+<% else %>
+    <h5> You must be logged in to leave a comment! </h5>
+<% end %>

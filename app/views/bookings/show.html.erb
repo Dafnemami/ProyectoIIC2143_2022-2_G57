@@ -1,0 +1,77 @@
+<center>
+
+
+<%# <p>
+  <strong>Id user:</strong>
+  <%= @booking.id_user_id %> 
+<%# </p> %>
+
+<%if @booking.id_court_id != nil %>
+  <% if current_user && current_user.admin or current_user && current_user.moderator %>
+    <h1> <b> Booking of <%= @canchas.find(@booking.id_court_id).nombre.capitalize() %> </b></h1>
+  <% else %>
+    <h1> <b> This is your booking of <%= @canchas.find(@booking.id_court_id).nombre.capitalize() %> </b></h1>
+  <%end%>
+<%end%>
+
+
+<% if current_user && current_user.admin or current_user && current_user.moderator %>
+  <h6> made by user <%= @users.find(@booking.id_user_id).name %> </h6>
+<%end%>
+
+
+<br>
+
+<h3> 
+  <strong> Status:</strong>
+  <%= @booking.bookingstatus %> 
+</h3>
+
+
+<h3>
+  <strong>Booked at:</strong>
+  <%= @booking.booked_at.strftime("%Y-%m-%d, at %H ") %>
+</h3>
+
+<h3>
+  <strong> Weather:</strong>
+  <%= @weather %> with a temperature of <%= @temperature %> °C
+</h3>
+
+<%# <h3>
+  <strong>Booked ends:</strong>
+  <%= @booking.booked_ends %>
+<%# </h3> %> 
+<br>
+
+<% if current_user && current_user.admin or current_user && current_user.moderator %>
+  <h6>
+    Remember, to always resolve the "Pending revision" bookings.
+  </h6>
+<% else %>
+  <h5>
+    Remember, your bookings lasts <strong> <%= @booking.booked_for.to_s %> </strong> <strong> hour</strong>
+  </h5>
+  <h6> Make sure you see "Approved" on the Status field to know your request has been accepted. </h6>
+  <br>
+  <h6>
+    Leave the court just as you found it, and inform at the beggining if anything is missing.
+  </h6>
+<% end %>
+
+<br>
+
+<%# <h3>
+  <strong>Total price:</strong>
+  <%= @booking.total_price %>
+<%# </h3> %>
+
+
+
+<br>
+
+<%# <% if not (current_user && current_user.admin or current_user && current_user.moderator) %> 
+<%# <% end %> 
+<%= link_to 'Edit Booking', edit_booking_path(@booking), class:"btn btn-outline-primary" %> 
+<%# <%= link_to 'Back to Bookings', bookings_path, class:"btn btn-outline-primary" %>
+<%= link_to 'Back to Courts', canchas_path, class:"btn btn-outline-primary" %>

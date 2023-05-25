@@ -1,0 +1,64 @@
+<center>
+<h2>Sign up</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= render "users/shared/error_messages", resource: resource %>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", style:"max-width: 30rem;", class:"form-select" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "new-password", style:"max-width: 30rem;", class:"form-control" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", style:"max-width: 30rem;", class:"form-control" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name, autofocus: true, style:"max-width: 30rem;", class:"form-control" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :last_name %><br />
+    <%= f.text_field :last_name, autofocus: true, style:"max-width: 30rem;", class:"form-control" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :run %><br />
+    <%= f.text_field :run, autofocus: true, style:"max-width: 30rem;", class:"form-control" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :phone %><br />
+    <%= f.text_field :phone, autofocus: true, style:"max-width: 30rem;", class:"form-control" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :address %><br />
+    <%= f.text_field :address, autofocus: true, style:"max-width: 30rem;", class:"form-control" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :birth_date %><br />
+    <%= f.date_field :birth_date, autofocus: true, style:"max-width: 30rem;", class:"form-select" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :pay_method %><br />
+    <%= f.select :pay_method, options_for_select([['Debit Card'], ['Credit Card'], ['QR Code']]), prompt: '', autofocus: true, style:"max-width: 30rem;", class:"form-select" %>
+  </div>
+  <br>
+  <div class="actions">
+    <%= f.submit "Sign up", class:"btn btn-primary" %>
+  </div>
+<% end %>
+</center>

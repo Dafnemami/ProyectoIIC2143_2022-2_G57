@@ -1,0 +1,52 @@
+<center>
+<h1><b>Courts</b></h1>
+
+<%= form_tag "/canchas", method: "GET" do %>
+  <%= label_tag :search %>
+  <%= text_field_tag :search, params[:search], class:"form-control",
+   style:"max-width: 30rem;" %>
+  <br>
+  <%= label_tag :order_by %>
+  <%= select_tag :order_by, options_for_select([["Name", "nombre"],
+   ["Created at", "created_at"]], params[:order_by]), class:"form-select",
+   style:"max-width: 30rem;" %>
+  <br>
+  <%= submit_tag "Search", class:"btn btn-info" %>
+<% end %>
+
+
+<table class="table table-hover" style="max-width: 50rem;">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Sport</th>
+      <th>Status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @canchas.each do |cancha| %>
+      <tr>
+        <td><%= cancha.nombre %></td>
+        <td><%= cancha.deporte %></td>
+        <td><%= cancha.estado %></td>
+        <div class="btn-group" role="group">
+          <td><%= link_to 'Show', cancha , class:"btn btn-outline-info"%></td>
+          <% if current_user && current_user.admin or current_user && current_user.moderator %>
+            <td><%= link_to 'Edit', edit_cancha_path(cancha), class:"btn btn-outline-warning" %></td>
+            <td><%= link_to 'Destroy', cancha, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-outline-danger" %></td>
+          <% end %>
+        </div>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</center>
+
+<br>
+
+<% if current_user && current_user.admin or current_user && current_user.moderator %>
+  <%= link_to 'New Court', new_cancha_path, class:"btn btn-outline-primary" %>
+<% end %>
+<%= link_to 'Back', "/", class:"btn btn-outline-primary" %>

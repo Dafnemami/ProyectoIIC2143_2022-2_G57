@@ -1,0 +1,57 @@
+<center>
+<h1> <b> Information of the court </b></h1>
+<h2> <%= @cancha.nombre.capitalize() %> </h2>
+
+<br>
+
+
+<%# <h3>
+  <strong>Name:</strong>
+  <%= @cancha.nombre %>
+<%# </h3> %>
+
+
+<h3>
+  <strong>Sport:</strong>
+  <%= @cancha.deporte %>
+</h3>
+
+<%# <h3>
+  <strong>Status:</strong>
+  <%= @cancha.estado %>
+<%# </h3> %>
+
+<h3>
+  <strong>Price:</strong>
+  <%= @cancha.price %> CLP
+</h3>
+
+
+<h3>
+  <strong>Score:</strong>
+  <% if @mean_score %>
+    <%= @mean_score.truncate(2) %>
+  <% else %>
+    No score yet
+  <% end %>
+</h3>
+
+<% if @cancha.image_url %>
+  <%= image_tag(@cancha.image_url, width: "30%") %> <br>
+<% end %>
+
+<p>
+  <strong>Reviews (<%= @total_reviews %>)</strong>
+  <%= render "reviews/review" %>
+</p>
+</center>
+
+<% if current_user && current_user.admin or current_user && current_user.moderator %> 
+  <%= link_to 'Edit', edit_cancha_path(@cancha), class:"btn btn-outline-primary" %>
+<% end %>
+
+<%= link_to 'Back to Courts', canchas_path, class:"btn btn-outline-primary" %>
+
+<% if not (!current_user or  current_user && current_user.admin or current_user && current_user.moderator) %> 
+    <%= link_to 'Book it!', new_booking_path(id_court: @cancha.id), class:"btn btn-outline-primary" %>
+<% end %> 

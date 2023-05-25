@@ -1,0 +1,12 @@
+<center>
+
+<% if current_user && current_user.admin or current_user && current_user.moderator %>
+    <h1><b> Change a Booking </b></h1>
+<% else%>
+    <h1><b> Change your Booking </b></h1>
+<%end%>
+
+<%= render 'form', booking: @booking %>
+
+<%= link_to 'Your Bookings', bookings_path, class:"btn btn-outline-primary"%> 
+<%= link_to 'Booking Info', @booking, class:"btn btn-outline-primary" %>

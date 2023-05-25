@@ -1,0 +1,46 @@
+<%= form_with(model: cancha, local: true) do |form| %>
+  <% if cancha.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(cancha.errors.count, "error") %> prohibited this cancha from being saved:</h2>
+
+      <ul>
+        <% cancha.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label "Name", class:"col-form-label mt-4" %>
+    <%= form.text_field :nombre, class:"form-control", style:"max-width: 30rem;" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label "Sport", class:"col-form-label mt-4" %>
+    <%= form.select :deporte , options_for_select([['Tracks'], ['Soccer'], ['Tenis'], ['Volleyball'], ['Basquetball']]), include_blank: true, prompt: '', class:"form-control", style:"max-width: 30rem;" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label "Status", class:"form-label mt-4" %>
+    <%= form.select :estado, options_for_select([['Avaliable'], ['Occupied']]), include_blank: true, prompt: '', class:"form-control", style:"max-width: 30rem;" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label "Rented by User", class:"form-label mt-4" %>
+    <%= form.text_field :id_arrendatario, class:"form-control", style:"max-width: 30rem;" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label "Price", class:"col-form-label mt-4" %>
+    <%= form.text_field :price, class:"form-control", style:"max-width: 30rem;" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label "Image URL", class:"form-label mt-4" %>
+    <%= form.text_field :image_url, class:"form-control", style:"max-width: 30rem;" %>
+
+  <br>
+  
+  <button type="submit" class="btn btn-primary">Submit</button>
+<% end %>

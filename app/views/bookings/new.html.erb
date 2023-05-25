@@ -1,0 +1,13 @@
+<center>
+
+<h1><b>Make a Booking!</b></h1>
+
+<%# P. IDENTIFICAR CANCHA QUE ESTAMOS ARRENDANDO %>
+<%# para dsp poder devolverme a ESA cancha %>
+
+<%= render 'form', booking: @booking %>
+
+<%= link_to 'Back', cancha_path(@params), class:"btn btn-outline-primary" %> 
+<%= link_to 'Back to Courts', canchas_path, class:"btn btn-outline-primary" %>
+<%# <%= link_to 'Your Bookings', bookings_path, class:"btn btn-outline-primary" %> 
+
